@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="jspsych-6.0.1/jspsych.js"></script>
+    <script src="jspsych-6.0.1/plugins/jspsych-audio-button-response.js"></script>
+        <script src="jspsych-6.0.1/plugins/jspsych-audio-keyboard-response.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="jspsych-6.0.1/css/jspsych.css"></link>
+  </head>
+  <body></body>
+  <script>
+    var timeline = [];
+    
+var trial1 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/1_what do you like to do.mp3',
+    prompt: "<p>1. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node1 = {
+    timeline: [trial1],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial2 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/2_why you doing that.mp3',
+    prompt: "<p>2. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node2 = {
+    timeline: [trial2],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial3 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/3_what you like to do at sleepovers.mp3',
+    prompt: "<p>3. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node3 = {
+    timeline: [trial3],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial4 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/4_where do you like to play games.mp3',
+    prompt: "<p>4. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node4 = {
+    timeline: [trial4],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial5 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/5_where you sleeping.mp3',
+    prompt: "<p>5. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node5 = {
+    timeline: [trial5],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial6 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/6_when do you like to eat french frie6_s.mp3',
+    prompt: "<p>6. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node6 = {
+    timeline: [trial6],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial7 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/7_when are you eating.mp3',
+    prompt: "<p>7. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node7 = {
+    timeline: [trial7],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial8 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/8_where you like to play.mp3',
+    prompt: "<p>8. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node8 = {
+    timeline: [trial8],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial9 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/9_what is she doing.mp3',
+    prompt: "<p>9. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node9 = {
+    timeline: [trial9],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial10 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/10_what are you drinking.mp3',
+    prompt: "<p>10. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node10 = {
+    timeline: [trial10],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial11 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/11_what you like to drink.mp3',
+    prompt: "<p>11. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node11 = {
+    timeline: [trial11],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial12 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/12_what he drinking.mp3',
+    prompt: "<p>12. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node12 = {
+    timeline: [trial12],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var trial13 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/13_what does she like to drink.mp3',
+    prompt: "<p>13. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node13 = {
+    timeline: [trial13],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial14 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/14_when are you making the beds.mp3',
+    prompt: "<p>14. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node14 = {
+    timeline: [trial14],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial15 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/15_where does the bug like to sleep.mp3',
+    prompt: "<p>15. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node15 = {
+    timeline: [trial15],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial16 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/16_what you like to eat.mp3',
+    prompt: "<p>16. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node16 = {
+    timeline: [trial16],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial17 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/17_where is she sleeping.mp3',
+    prompt: "<p>17. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node17 = {
+    timeline: [trial17],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial18 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/18_when you like to sleep.mp3',
+    prompt: "<p>18. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node18 = {
+    timeline: [trial18],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial19 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/19_why not the bug like to eat.mp3',
+    prompt: "<p>19. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node19 = {
+    timeline: [trial19],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial20 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/20_what the bug eating.mp3',
+    prompt: "<p>20. Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node20 = {
+    timeline: [trial20],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+	
+ timeline.push(loop_node1, loop_node2, loop_node3,loop_node4, loop_node5, loop_node6,loop_node7, loop_node8, loop_node9,loop_node10, loop_node11, loop_node12,loop_node13, loop_node14, loop_node15,loop_node16, loop_node17, loop_node18,loop_node19,loop_node20);
+
+function saveData(name, data){
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'savedata.php');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({filename: name, filedata: data}));
+}
+
+function save_Data(filename, filedata){
+   $.ajax({
+      type:'post',
+      cache: false,
+      url: '../expf/deep/local_data_save.php', // this is the path to the above PHP script
+      data: {filename: filename, filedata: filedata}
+   });
+}
+
+String.prototype.format = function () {
+    var i = 0, args = arguments;
+    return this.replace(/{}/g, function () {
+        return typeof args[i] != 'undefined' ? args[i++] : '';
+    });
+    };
+
+jsPsych.init({
+      timeline: timeline,
+      on_finish: 
+function(){ saveData("experiment_data.csv", jsPsych.data.get().csv());
+var all = jsPsych.data.get();
+saveData("test", all.csv());
+save_Data("{}_rice_gj.csv",all.csv());
+ console.log(jsPsych.data.get().csv()); 
+ }
+ });
+      
+  </script>
+</html>

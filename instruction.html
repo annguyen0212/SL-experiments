@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<title>Instruction</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+
+.yes {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 18px;
+    position: center;
+}
+
+.no {
+    background-color: #d66262;
+    color: white;
+    padding: 12px 18px;
+}
+
+.element_block {
+    display:block;
+}
+
+.mic {
+    display: none;
+}
+
+.nomic {
+    display: none;
+}
+</style>
+
+
+<p> <center> <h1><b>Welcome to our experiment!</h1></b></center></p>
+  <div class="w3-container w3-content w3-padding-64" style="max-width:1000px" id="band">
+  <p class="w3-justify"><h2><justify>We are going to task you to do some language tasks and play some games today. Some of the tasks require access to a microphone. Please click on the "Record" button below to test if your microphone works.
+
+<br><br>
+    
+ </div>
+<center><section class="main-controls" id="sound">
+        <canvas class="visualizer" height="50"></canvas>
+        <div id="buttons">
+          <button id="rec" class="record" >Record</button> 
+          <button id="stop" class="stop">Stop</button> </section>
+           <section id='clip' class="sound-clips"> </section>
+        
+        
+ </center>
+ </div>
+ 
+  <div  id="mic" align='middle'   class="mic">
+  <br><br>
+  <p> <center><justify><h2> You will be asked to record a few sentences in the next task. This task takes about 3 minutes and 20 seconds. After the time is up, you will be prompted to download the recording file to your local computer. Please accept the download as you will be asked to upload the file to our server later. A next button will appear at the bottom right of the page after you are done with the task.
+  If you are clear with the instruction and ready to start the task, please <a href="https://cogscigame.co/dropbox/webaudio.html"> click here. </a> </h2></center></justify>
+ </p></div>
+ 
+ 
+ 
+ 
+   </body>   
+   
+   
+<footer><center><div id='button'> <br><br>  <a  onclick='document.getElementById("band").style.display= "none";document.getElementById("sound").style.display= "none";document.getElementById("button").style.display= "none";document.getElementById("clip").style.display= "none";document.getElementById("mic").style.display="block"'  class="yes">Click here if your microphone works</a>
+<a onclick='document.getElementById("band").style.display= "none";document.getElementById("sound").style.display= "none";document.getElementById("button").style.display= "none";document.getElementById("clip").style.display= "none";' class="no">Click here if your microphone doesn't work</a>    
+   </div><center>
+</footer>
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+<script>
+
+
+(function() {
+
+	var promisifiedOldGUM = function(constraints, successCallback, errorCallback) {
+
+		// First get ahold of getUserMedia, if present
+		var getUserMedia = (navigator.getUserMedia ||
+				navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia ||
+				navigator.msGetUserMedia);
+
+		// Some browsers just dont implement it - return a rejected promise with an error
+		// to keep a consistent interface
+		if(!getUserMedia) {
+			return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+		}
+
+		// Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+		return new Promise(function(successCallback, errorCallback) {
+			getUserMedia.call(navigator, constraints, successCallback, errorCallback);
+		});
+		
+	}
+
+	// Older browsers might not implement mediaDevices at all, so we set an empty object first
+	if(navigator.mediaDevices === undefined) {
+		navigator.mediaDevices = {};
+	}
+
+	// Some browsers partially implement mediaDevices. We can't just assign an object
+	// with getUserMedia as it would overwrite existing properties.
+	// Here, we will just add the getUserMedia property if it's missing.
+	if(navigator.mediaDevices.getUserMedia === undefined) {
+		navigator.mediaDevices.getUserMedia = promisifiedOldGUM;
+	}
+	
+})();
+</script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<!-- ----------------------------------------------------------------------------- -->
+<script>
+   
+
+$timeDisplay = $('#time-display');
+ 
+
+  
+var record = document.querySelector('.record');
+var stop = document.querySelector('.stop');
+var soundClips = document.querySelector('.sound-clips');
+var canvas = document.querySelector('.visualizer');
+var mainSection = document.querySelector('.main-controls');
+
+// disable stop button while not recording
+
+stop.disabled = true;
+
+// visualiser setup - create web audio api context and canvas
+
+var audioCtx = new (window.AudioContext || webkitAudioContext)();
+var canvasCtx = canvas.getContext("2d");
+
+//main block for doing the audio recording
+
+if (navigator.mediaDevices.getUserMedia) {
+  console.log('getUserMedia supported.');
+
+  var constraints = { audio: true };
+  var chunks = [];
+
+  var onSuccess = function(stream) {
+    var mediaRecorder = new MediaRecorder(stream);
+
+    visualize(stream);
+    clickCount = 0;
+
+     
+  record.onclick = function() { mediaRecorder.start();
+      console.log(mediaRecorder.state);
+      console.log("recorder started");
+      record.style.background = "red";
+
+      stop.disabled = false;
+      record.disabled = true;}
+    
+
+      
+    stop.onclick = function() {
+      mediaRecorder.stop();
+      console.log(mediaRecorder.state);
+      console.log("recorder stopped");
+      record.style.background = "";
+      record.style.color = "";
+      mediaRecorder.requestData();
+
+      stop.disabled = true;
+      record.disabled = false;
+    }
+    
+   
+
+    mediaRecorder.onstop = function(e) {
+
+      console.log("data available after MediaRecorder.stop() called.");
+
+    //  var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
+    //  console.log(clipName);
+      var clipContainer = document.createElement('article');
+      var clipLabel = document.createElement('p');
+      var audio = document.createElement('audio');
+ //     var deleteButton = document.createElement('button'); 
+     
+      clipContainer.classList.add('clip');
+      audio.setAttribute('controls', '');
+    //   deleteButton.textContent = 'Delete';
+    //  deleteButton.className = 'delete';
+   //   deleteButton.class = 'hidden';  
+
+      clipLabel.textContent = 'test sound';
+  //    } else {
+  //      clipLabel.textContent = clipName;
+  //    }
+
+      clipContainer.appendChild(audio);
+ //     clipContainer.appendChild(clipLabel);
+ //     clipContainer.appendChild(deleteButton);  
+           soundClips.appendChild(clipContainer);
+
+      audio.controls = true;
+      var blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
+     // download(blob,clipLabel.textContent + ".mp3","audio/mp3");
+      chunks = [];
+      var audioURL = window.URL.createObjectURL(blob);
+
+
+      audio.src = audioURL;
+
+      console.log("recorder stopped");
+//      deleteButton.onclick = function(e) {
+//        evtTgt = e.target;
+//        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+//      }
+
+  //   clipLabel.onclick = function() {
+   //     var existingName = clipLabel.textContent;
+    //    var newClipName = prompt('Enter a new name for your sound clip?');
+     //   if(newClipName === null) {
+     //     clipLabel.textContent = existingName;
+      //  } else {
+      //    clipLabel.textContent = newClipName;
+      //  }
+     // }
+    }
+
+  
+   mediaRecorder.ondataavailable = function(e) {
+             chunks.push(e.data);
+        }    
+
+    
+  }
+
+  var onError = function(err) {
+    console.log('The following error occured: ' + err);
+  }
+
+  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+
+} else {
+   console.log('getUserMedia not supported on your browser!');
+}
+
+function visualize(stream) {
+  var source = audioCtx.createMediaStreamSource(stream);
+
+  var analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+  //analyser.connect(audioCtx.destination);
+
+  draw()
+
+  function draw() {
+    WIDTH = canvas.width
+    HEIGHT = canvas.height;
+
+    requestAnimationFrame(draw);
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+    canvasCtx.beginPath();
+
+    var sliceWidth = WIDTH * 1.0 / bufferLength;
+    var x = 0;
+
+
+    for(var i = 0; i < bufferLength; i++) {
+ 
+      var v = dataArray[i] / 128.0;
+      var y = v * HEIGHT/2;
+
+      if(i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.stroke();
+
+  }
+}
+
+window.onresize = function() {
+  canvas.width = 150;
+}
+
+window.onresize();
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+<script>
+var manifest_url = location.href + 'manifest.webapp';
+
+function install(ev) {
+  ev.preventDefault();
+  // define the manifest URL
+  // install the app
+  var installLocFind = navigator.mozApps.install(manifest_url);
+  installLocFind.onsuccess = function(data) {
+    // App is installed, do something 
+  };
+  installLocFind.onerror = function() {
+    // App wasnt installed, info is in
+    // installapp.error.name
+    alert(installLocFind.error.name);
+  };
+};
+
+// get a reference to the button and call install() on click if the app isnt already installed. If it is, hide the button.
+var button = document.getElementById('install-btn');
+
+var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+
+installCheck.onsuccess = function() {
+  if(installCheck.result) {
+    button.style.display = "none";
+  } else {
+    button.addEventListener('click', install, false);
+  };
+};
+</script>
+
+<!-- ------------------------------------------ -->
+<script>
+					 
+						 
+function download(data, strFileName, strMimeType) {
+	
+	var self = window, // this script is only for browsers anyway...
+		u = "application/octet-stream", // this default mime also triggers iframe downloads
+		m = strMimeType || u, 
+		x = data,
+		D = document,
+		a = D.createElement("a"),
+		z = function(a){return String(a);},
+		
+		
+		B = self.Blob || self.MozBlob || self.WebKitBlob || z,
+		BB = self.MSBlobBuilder || self.WebKitBlobBuilder || self.BlobBuilder,
+		fn = strFileName || "download",
+		blob, 
+		b,
+		ua,
+		fr;
+
+	//if(typeof B.bind === 'function' ){ B=B.bind(self); }
+	
+	if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
+		x=[x, m];
+		m=x[0];
+		x=x[1]; 
+	}
+	
+	
+	
+	//go ahead and download dataURLs right away
+	if(String(x).match(/^data\:[\w+\-]+\/[\w+\-]+[,;]/)){
+		return navigator.msSaveBlob ?  // IE10 cant do a[download], only Blobs:
+			navigator.msSaveBlob(d2b(x), fn) : 
+			saver(x) ; // everyone else can save dataURLs un-processed
+	}//end if dataURL passed?
+	
+	try{
+	
+		blob = x instanceof B ? 
+			x : 
+			new B([x], {type: m}) ;
+	}catch(y){
+		if(BB){
+			b = new BB();
+			b.append([x]);
+			blob = b.getBlob(m); // the blob
+		}
+		
+	}
+	
+	
+	
+	function d2b(u) {
+		var p= u.split(/[:;,]/),
+		t= p[1],
+		dec= p[2] == "base64" ? atob : decodeURIComponent,
+		bin= dec(p.pop()),
+		mx= bin.length,
+		i= 0,
+		uia= new Uint8Array(mx);
+
+		for(i;i<mx;++i) uia[i]= bin.charCodeAt(i);
+
+		return new B([uia], {type: t});
+	 }
+	  
+	function saver(url, winMode){
+		
+		
+		if ('download' in a) { //html5 A[download] 			
+			a.href = url;
+			a.setAttribute("download", fn);
+			a.innerHTML = "downloading...";
+			D.body.appendChild(a);
+			setTimeout(function() {
+				a.click();
+				D.body.removeChild(a);
+				if(winMode===true){setTimeout(function(){ self.URL.revokeObjectURL(a.href);}, 250 );}
+			}, 66);
+			return true;
+		}
+		
+		//do iframe dataURL download (old ch+FF):
+		var f = D.createElement("iframe");
+		D.body.appendChild(f);
+		if(!winMode){ // force a mime that will download:
+			url="data:"+url.replace(/^data:([\w\/\-\+]+)/, u);
+		}
+		 
+	
+		f.src = url;
+		setTimeout(function(){ D.body.removeChild(f); }, 333);
+		
+	}//end saver 
+		
+
+	if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+		return navigator.msSaveBlob(blob, fn);
+	} 	
+	
+	if(self.URL){ // simple fast and modern way using Blob and URL:
+		saver(self.URL.createObjectURL(blob), true);
+	}else{
+		// handle non-Blob()+non-URL browsers:
+		if(typeof blob === "string" || blob.constructor===z ){
+			try{
+				return saver( "data:" +  m   + ";base64,"  +  self.btoa(blob)  ); 
+			}catch(y){
+				return saver( "data:" +  m   + "," + encodeURIComponent(blob)  ); 
+			}
+		}
+		
+		// Blob but not URL:
+		fr=new FileReader();
+		fr.onload=function(e){
+			saver(this.result); 
+		};
+		fr.readAsDataURL(blob);
+	}	
+	return true;
+} 
+
+</script>
+
+</html> 

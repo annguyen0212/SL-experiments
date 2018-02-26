@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="jspsych-6.0.1/jspsych.js"></script>
+    <script src="jspsych-6.0.1/plugins/jspsych-audio-button-response.js"></script>
+        <script src="jspsych-6.0.1/plugins/jspsych-audio-keyboard-response.js"></script>
+        <script src="jspsych-6.0.1/plugins/jspsych-html-keyboard-response.js"></script>
+
+    <link rel="stylesheet" href="jspsych-6.0.1/css/jspsych.css"></link>
+  </head>
+  <body></body>
+  <script>
+    var timeline = [];
+
+var instr = {
+	type: 'audio-button-response',
+	stimulus: 'rice_gj/gram_prac1.mp3',
+	prompt: "Welcome to our listening game! You're going to hear some questions today. Sometimes the question will sound right, but sometimes they won't sound so good. I want you to click the green button if they sound Right or the red button if they are Not So Good. Remember, you're not going to answer the questions. Just choose whether the question sounds right or not so good. If you want to listen to the question again, click on the girl with the speaker. Are you ready? Let's practice some!",
+	margin_horizontal: '14px',
+	choices: ['replay.png', 'next.png'],
+   	    button_html: '<img src="%choice%" />'
+};
+
+var loop_node0 = {
+    timeline: [instr],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "0"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+var trial1 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac1.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node1 = {
+    timeline: [trial1],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+
+var feedback1 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="2"){
+      return "rice_gj/gram_prac1_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="2"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}	
+
+
+
+var trial2 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac2.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node2 = {
+    timeline: [trial2],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+var feedback2 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac2_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}	
+
+var trial3 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac3.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node3 = {
+    timeline: [trial3],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var feedback3 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac3_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var trial4 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac4.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node4 = {
+    timeline: [trial4],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var feedback4 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac4_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+
+var trial5 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac5.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node5 = {
+    timeline: [trial5],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var feedback5 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac5_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var trial6 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac6.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node6 = {
+    timeline: [trial6],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var feedback6 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="2"){
+      return "rice_gj/gram_prac6_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="2"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+
+var trial7 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac7.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node7 = {
+    timeline: [trial7],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+var feedback7 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac7_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+
+var trial8 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac8.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node8 = {
+    timeline: [trial8],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+var feedback8 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac8_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var trial9 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac9.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node9 = {
+    timeline: [trial9],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var feedback9 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac9_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var trial10 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac10.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node10 = {
+    timeline: [trial10],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+var feedback10 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="2"){
+      return "rice_gj/gram_prac10_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="0"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="2"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var trial11 = {
+    type: 'audio-button-response',
+    stimulus: 'rice_gj/gram_prac11.mp3',
+    prompt: "<p>Is this sentence good or bad?</p>",
+
+    choices: ['good.png','girl1.jpg', 'bad.png'],
+    button_html: '<img src="%choice%" />'
+};
+
+var loop_node11 = {
+    timeline: [trial11],
+    loop_function: function(){
+ var data = jsPsych.data.get().last(1).values()[0];
+        if(data.button_pressed == "1"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+var feedback11 = {
+   type: 'audio-keyboard-response',
+  stimulus: function(){
+      var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "rice_gj/gram_prac_corr_fb.mp3";
+    } if (key=="0"){
+      return "rice_gj/gram_prac11_wrong_fb.mp3";
+    }    
+  },
+    choices: jsPsych.NO_KEYS,
+    trial_ends_after_audio: true,
+    prompt: function(){
+    var key = jsPsych.data.get().last(1).values()[0].button_pressed;
+    if(key=="2"){
+      return "<img src='happy.png' align='middle' style='height:200px;width:200px;'>";
+    } if (key=="0"){
+      return "<img src='thinking.png' align='middle' style='height:200px;width:200px;'>";
+    }},
+   
+}
+
+var audio = ['rice_gj/gram_prac_corr_fb.mp3','rice_gj/gram_prac1_wrong_fb.mp3','rice_gj/gram_prac2_wrong_fb.mp3','rice_gj/gram_prac3_wrong_fb.mp3','rice_gj/gram_prac4_wrong_fb.mp3','rice_gj/gram_prac5_wrong_fb.mp3','rice_gj/gram_prac6_wrong_fb.mp3','rice_gj/gram_prac7_wrong_fb.mp3','rice_gj/gram_prac8_wrong_fb.mp3','rice_gj/gram_prac9_wrong_fb.mp3','rice_gj/gram_prac10_wrong_fb.mp3','rice_gj/gram_prac11_wrong_fb.mp3'];
+	
+ timeline.push(loop_node0,loop_node1,feedback1,loop_node2,feedback2,loop_node3,feedback3,loop_node4,feedback4,loop_node5,feedback5,loop_node6,feedback6,loop_node7,feedback7,loop_node8,feedback8,loop_node9,feedback9,loop_node10,feedback10,loop_node11,feedback11);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline,
+     preload_audio: audio,
+
+      on_finish: function(data) {
+      console.log( jsPsych.data.get().last(1).values()[0].button_pressed)
+        jsPsych.data.displayData();
+      }
+    });
+  </script>
+</html>
